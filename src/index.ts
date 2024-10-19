@@ -1,5 +1,6 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
+import { shouldCrawl, crawl } from './crawler'
 
 const app = new Hono()
 
@@ -7,10 +8,8 @@ app.get('/', (c) => {
   return c.text('Hello Hono!')
 })
 
-const port = 3000
-console.log(`Server is running on port ${port}`)
+setInterval(() => {
+  if (shouldCrawl()) crawl()
+}, 1000)
 
-serve({
-  fetch: app.fetch,
-  port
-})
+serve(app)
