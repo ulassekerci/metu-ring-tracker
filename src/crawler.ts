@@ -3,8 +3,9 @@ import { RingData, VehicleTrip } from './interfaces'
 import sql from './db'
 import { nanoid } from 'nanoid'
 import { DateTime } from 'luxon'
+import { checkMovement } from './helpers'
 
-const lastCrawl = {
+export const lastCrawl = {
   data: null as RingData[] | null,
   vehicles: [] as VehicleTrip[],
   timestamp: null as DateTime | null,
@@ -54,36 +55,4 @@ export const crawl = async () => {
 
     await sql`INSERT INTO ring_history ${sql(historyData)}`
   })
-}
-
-const checkMovement = (data: RingData[]) => {
-  let isMoved = false
-  data.map((ring) => {
-    const oldData = lastCrawl.data?.find((v) => v.id === ring.id)
-    if (ring.lat !== oldData?.lat) isMoved = true
-    if (ring.lng !== oldData?.lng) isMoved = true
-  })
-  return isMoved
-}
-
-export const shouldCrawl = () => {
-  const now = DateTime.now().setZone('Europe/Istanbul')
-
-  // If there is data, crawl
-  if (lastCrawl.data) return true
-
-  // If there is no timestamp, crawl
-  if (!lastCrawl.timestamp) return true
-
-  // If it is night, do not crawl
-  if (now.hour > 1 && now.hour < 7) return false
-
-  // If it is weekend or evening, crawl less frequently
-  if (now.isWeekend || now.hour > 18) {
-    const lastCrawlDiff = lastCrawl.timestamp.diffNow('seconds').seconds
-    if (now.minute < 20) return lastCrawlDiff > 60
-    else if (now.minute > 40) return lastCrawlDiff > 60
-  }
-
-  return true
 }
