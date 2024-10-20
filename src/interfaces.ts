@@ -14,3 +14,15 @@ export interface VehicleTrip {
   tripID: string
   plate: string
 }
+
+export interface RingLog {
+  id: number
+  trip_id: string
+  lat: string
+  lng: string
+  address: string
+  color: string
+  state: string
+  plate: string
+  timestamp: string
+}
