@@ -1,15 +1,16 @@
 import { DateTime } from 'luxon'
-import { lastCrawl } from './crawler'
+import { crawl, lastCrawl } from './crawler'
 import { RingData } from './interfaces'
+import 'dotenv/config'
 
-export const checkMovement = (data: RingData[]) => {
-  let isMoved = false
-  data.map((ring) => {
-    const oldData = lastCrawl.data?.find((v) => v.id === ring.id)
-    if (ring.lat !== oldData?.lat) isMoved = true
-    if (ring.lng !== oldData?.lng) isMoved = true
-  })
-  return isMoved
+export const crawlScheduler = () => {
+  if (process.env.DISABLE_CRAWLER) return
+  if (!shouldCrawl()) return
+  try {
+    crawl()
+  } catch (error) {
+    // TODO: Handle error
+  }
 }
 
 export const shouldCrawl = () => {
@@ -32,4 +33,14 @@ export const shouldCrawl = () => {
   }
 
   return true
+}
+
+export const checkMovement = (data: RingData[]) => {
+  let isMoved = false
+  data.map((ring) => {
+    const oldData = lastCrawl.data?.find((v) => v.id === ring.id)
+    if (ring.lat !== oldData?.lat) isMoved = true
+    if (ring.lng !== oldData?.lng) isMoved = true
+  })
+  return isMoved
 }

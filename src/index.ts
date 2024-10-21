@@ -1,21 +1,14 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
-import { crawl, lastCrawl } from './crawler'
-import { shouldCrawl } from './helpers'
+import { lastCrawl } from './crawler'
 import trips from './trips'
-import 'dotenv/config'
+import { crawlScheduler } from './helpers'
 
 const app = new Hono()
 
-app.get('/', (c) => {
-  return c.json(lastCrawl)
-})
-
+app.get('/', (c) => c.json(lastCrawl))
 app.route('/trips', trips)
 
-setInterval(() => {
-  if (process.env.DISABLE_CRAWLER) return
-  if (shouldCrawl()) crawl()
-}, 1000)
+setInterval(() => crawlScheduler, 1000)
 
 serve(app)

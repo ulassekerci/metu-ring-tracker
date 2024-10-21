@@ -3,7 +3,7 @@ import { RingData, VehicleTrip } from './interfaces'
 import sql from './db'
 import { nanoid } from 'nanoid'
 import { DateTime } from 'luxon'
-import { checkMovement } from './helpers'
+import { checkMovement, shouldCrawl } from './helpers'
 
 export const lastCrawl = {
   data: null as RingData[] | null,
