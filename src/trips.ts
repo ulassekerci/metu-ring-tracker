@@ -6,7 +6,7 @@ import sql from './db'
 const app = new Hono()
 
 app.get('/', async (c) => {
-  const ringData = (await sql`SELECT * FROM ring_history`) as RingLog[]
+  const ringData = (await sql`SELECT * FROM ring_history ORDER BY timestamp`) as RingLog[]
   const ringTripIDs = [...new Set(ringData.map((log) => log.trip_id))]
 
   const ringTrips = ringTripIDs.map((tripID) => {
@@ -32,9 +32,10 @@ app.get('/', async (c) => {
 })
 
 const findClosestStartTime = (tripTime: DateTime) => {
-  const roundedMinutes = Math.round(tripTime.minute / 20) * 20
+  const closest20thMinute = Math.round(tripTime.minute / 20) * 20
+  const isWeekendOrNight = tripTime.hour > 17 || tripTime.isWeekend
   return tripTime.set({
-    minute: tripTime.isWeekend ? 30 : roundedMinutes,
+    minute: isWeekendOrNight ? 30 : closest20thMinute,
     second: 0,
   })
 }

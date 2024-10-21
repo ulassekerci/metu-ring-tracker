@@ -10,6 +10,7 @@ export const crawlScheduler = () => {
     crawl()
   } catch (error) {
     // TODO: Handle error
+    console.error(error)
   }
 }
 
