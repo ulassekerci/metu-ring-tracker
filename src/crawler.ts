@@ -3,7 +3,7 @@ import { RingData, VehicleTrip } from './interfaces'
 import sql from './db'
 import { nanoid } from 'nanoid'
 import { DateTime } from 'luxon'
-import { checkMovement, shouldCrawl } from './helpers'
+import { checkMovement } from './helpers'
 
 export const lastCrawl = {
   data: null as RingData[] | null,
@@ -50,7 +50,7 @@ export const crawl = async () => {
       color: ring.clr,
       state: ring.key,
       plate: ring.id,
-      timestamp: DateTime.now().setZone('Europe/Istanbul').toSQL(),
+      timestamp: DateTime.now().setZone('Europe/Istanbul').toISO(),
     }
 
     await sql`INSERT INTO ring_history ${sql(historyData)}`
