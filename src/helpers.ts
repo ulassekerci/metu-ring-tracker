@@ -1,23 +1,15 @@
 import { DateTime } from 'luxon'
-import { crawl, lastCrawl } from './crawler'
+import { lastCrawl } from './crawler'
 import { RingData } from './interfaces'
 import 'dotenv/config'
-
-export const crawlScheduler = () => {
-  if (process.env.DISABLE_CRAWLER) return
-  if (!shouldCrawl()) return
-  try {
-    crawl()
-  } catch (error) {
-    // TODO: Handle error
-    console.error(error)
-  }
-}
 
 export const shouldCrawl = () => {
   const now = DateTime.now().setZone('Europe/Istanbul')
 
-  // If there is data, crawl
+  // If crawler is disabled, do not crawl
+  if (process.env.DISABLE_CRAWLER) return false
+
+  // If there are active busses, crawl
   if (lastCrawl.data) return true
 
   // If there is no timestamp, crawl
