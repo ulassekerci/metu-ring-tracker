@@ -13,6 +13,7 @@ export interface RingData {
 export interface VehicleTrip {
   tripID: string
   plate: string
+  color: string
 }
 
 export interface RingLog {

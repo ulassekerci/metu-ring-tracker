@@ -11,8 +11,8 @@ app.get('/', async (c) => {
 
   const ringTrips = ringTripIDs.map((tripID) => {
     const tripLogs = ringData.filter((log) => log.trip_id === tripID)
-    const tripStart = DateTime.fromJSDate(new Date(tripLogs[0].timestamp))
-    const tripEnd = DateTime.fromJSDate(new Date(tripLogs[tripLogs.length - 1].timestamp))
+    const tripStart = DateTime.fromJSDate(new Date(tripLogs[tripLogs.length - 1].timestamp))
+    const tripEnd = DateTime.fromJSDate(new Date(tripLogs[0].timestamp))
     const tripDuration = tripEnd.diff(tripStart, 'seconds').seconds
     const ringTime = findClosestStartTime(tripStart)
     return {
@@ -20,7 +20,7 @@ app.get('/', async (c) => {
       departure: ringTime.toFormat('HH:mm'),
       duration: tripDuration,
       points: tripLogs.map((log) => ({
-        timestamp: log.timestamp,
+        timestamp: DateTime.fromJSDate(new Date(log.timestamp)).toFormat('dd/MM/yyyy HH:mm:ss'),
         address: log.address,
         color: log.color,
         state: log.state,
