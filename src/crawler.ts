@@ -50,7 +50,6 @@ export const crawl = async () => {
       color: ring.clr,
       state: ring.key,
       plate: ring.id,
-      timestamp: DateTime.now().setZone('Europe/Istanbul').toISO(),
     }
 
     await sql`INSERT INTO ring_history ${sql(historyData)}`
