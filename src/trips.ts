@@ -6,7 +6,7 @@ import sql from './db'
 const app = new Hono()
 
 app.get('/', async (c) => {
-  const ringData = (await sql`SELECT * FROM ring_history ORDER BY timestamp`) as RingLog[]
+  const ringData = (await sql`SELECT * FROM ring_history ORDER BY timestamp DESC`) as RingLog[]
   const ringTripIDs = [...new Set(ringData.map((log) => log.trip_id))]
 
   const ringTrips = ringTripIDs.map((tripID) => {
