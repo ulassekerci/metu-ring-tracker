@@ -40,11 +40,11 @@ export const crawl = async () => {
     // Record to database
     ringData.map(async (ring) => {
       const lastVehicle = lastCrawl.vehicles.find((v) => v.plate === ring.id && v.color === ring.clr)
-      const vehicle = lastVehicle || { tripID: nanoid(), plate: ring.id, color: ring.clr }
-      lastCrawl.vehicles.push(vehicle)
+      const vehicle = { tripID: lastVehicle?.tripID || nanoid(), plate: ring.id, color: ring.clr }
+      if (!lastVehicle) lastCrawl.vehicles.push(vehicle)
 
       const historyData = {
-        trip_id: vehicle?.tripID || nanoid(),
+        trip_id: vehicle.tripID,
         lat: ring.lat,
         lng: ring.lng,
         address: ring.addr,
