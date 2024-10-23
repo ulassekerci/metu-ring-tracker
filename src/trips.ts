@@ -8,6 +8,10 @@ const app = new Hono()
 app.get('/', async (c) => {
   const ringData = (await sql`SELECT * FROM ring_history ORDER BY timestamp DESC`) as RingLog[]
   const ringTripIDs = [...new Set(ringData.map((log) => log.trip_id))]
+  const failedTrips = ringTripIDs.filter((tripID) => ringData.filter((log) => log.trip_id === tripID).length < 30)
+  failedTrips.map(async (tripID) => {
+    await sql`DELETE FROM ring_history WHERE trip_id = ${tripID}`
+  })
 
   const ringTrips = ringTripIDs.map((tripID) => {
     const tripLogs = ringData.filter((log) => log.trip_id === tripID)
@@ -19,12 +23,14 @@ app.get('/', async (c) => {
       tripID,
       departure: ringTime.toFormat('HH:mm'),
       duration: tripDuration,
-      points: tripLogs.map((log) => ({
-        timestamp: DateTime.fromJSDate(new Date(log.timestamp)).toFormat('dd/MM/yyyy HH:mm:ss'),
-        address: log.address,
-        color: log.color,
-        state: log.state,
-      })),
+      plate: tripLogs[0].plate,
+      points: tripLogs.length,
+      // points: tripLogs.map((log) => ({
+      //   timestamp: DateTime.fromJSDate(new Date(log.timestamp)).toFormat('dd/MM/yyyy HH:mm:ss'),
+      //   address: log.address,
+      //   color: log.color,
+      //   state: log.state,
+      // })),
     }
   })
 
@@ -33,7 +39,7 @@ app.get('/', async (c) => {
 
 const findClosestStartTime = (tripTime: DateTime) => {
   const closest20thMinute = Math.round(tripTime.minute / 20) * 20
-  const isWeekendOrNight = tripTime.hour > 17 || tripTime.isWeekend
+  const isWeekendOrNight = tripTime.hour >= 17 || tripTime.isWeekend
   return tripTime.set({
     minute: isWeekendOrNight ? 30 : closest20thMinute,
     second: 0,
