@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { RingData, VehicleTrip } from './interfaces'
 import sql from './db'
 import { nanoid } from 'nanoid'
@@ -15,7 +15,6 @@ export const crawl = async () => {
   try {
     const ringReq = await axios.get('https://ring.metu.edu.tr/ring.json')
     const ringData = ringReq.data as RingData[] | string
-    lastCrawl.timestamp = DateTime.now().setZone('Europe/Istanbul')
 
     // If there is no data, return
     if (typeof ringData === 'string') {
@@ -27,16 +26,6 @@ export const crawl = async () => {
     // If there is no movement, return
     if (!checkMovement(ringData)) return
 
-    // Update lastCrawl
-    lastCrawl.data = ringData
-    lastCrawl.vehicles.map((oldVehicle) => {
-      if (ringData.find((v) => v.id === oldVehicle.plate)) return
-      lastCrawl.vehicles.splice(
-        lastCrawl.vehicles.findIndex((v) => v.plate === oldVehicle.plate),
-        1
-      )
-    })
-
     // Record to database
     ringData.map(async (ring) => {
       const lastVehicle = lastCrawl.vehicles.find((v) => v.plate === ring.id)
@@ -46,7 +35,7 @@ export const crawl = async () => {
       if (!lastVehicle) lastCrawl.vehicles.push(vehicle)
       else lastCrawl.vehicles[lastCrawl.vehicles.indexOf(lastVehicle)] = vehicle
 
-      const historyData = {
+      const databaseRow = {
         trip_id: vehicle.tripID,
         lat: ring.lat,
         lng: ring.lng,
@@ -56,9 +45,15 @@ export const crawl = async () => {
         plate: ring.id,
       }
 
-      await sql`INSERT INTO ring_history ${sql(historyData)}`
+      await sql`INSERT INTO ring_history ${sql(databaseRow)}`
     })
+
+    // Update lastCrawl
+    lastCrawl.data = ringData
+    lastCrawl.vehicles = lastCrawl.vehicles.filter((old) => ringData.some((newR) => newR.id === old.plate))
+    lastCrawl.timestamp = DateTime.now().setZone('Europe/Istanbul')
   } catch (error) {
-    console.error(error)
+    if (error instanceof AxiosError) console.log('Crawling error from axios: ', error.response?.status)
+    else console.error(error)
   }
 }
