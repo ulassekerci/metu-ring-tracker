@@ -30,7 +30,7 @@ export const crawl = async () => {
     // Update lastCrawl
     lastCrawl.data = ringData
     lastCrawl.vehicles.map((oldVehicle) => {
-      if (ringData.find((v) => v.id === oldVehicle.plate && v.clr === oldVehicle.color)) return
+      if (ringData.find((v) => v.id === oldVehicle.plate)) return
       lastCrawl.vehicles.splice(
         lastCrawl.vehicles.findIndex((v) => v.plate === oldVehicle.plate),
         1
@@ -39,9 +39,12 @@ export const crawl = async () => {
 
     // Record to database
     ringData.map(async (ring) => {
-      const lastVehicle = lastCrawl.vehicles.find((v) => v.plate === ring.id && v.color === ring.clr)
-      const vehicle = { tripID: lastVehicle?.tripID || nanoid(), plate: ring.id, color: ring.clr }
+      const lastVehicle = lastCrawl.vehicles.find((v) => v.plate === ring.id)
+      const isNewTrip = lastVehicle?.color === '#ff0000' && ring.clr === '#ffff57'
+      const tripID = isNewTrip ? nanoid() : lastVehicle?.tripID || nanoid()
+      const vehicle = { tripID, plate: ring.id, color: ring.clr }
       if (!lastVehicle) lastCrawl.vehicles.push(vehicle)
+      else lastCrawl.vehicles[lastCrawl.vehicles.indexOf(lastVehicle)] = vehicle
 
       const historyData = {
         trip_id: vehicle.tripID,
