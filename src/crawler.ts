@@ -30,7 +30,7 @@ export const crawl = async () => {
     // Update lastCrawl
     lastCrawl.data = ringData
     lastCrawl.vehicles.map((oldVehicle) => {
-      if (ringData.find((v) => v.id === oldVehicle.plate)) return
+      if (ringData.find((v) => v.id === oldVehicle.plate && v.clr === oldVehicle.color)) return
       lastCrawl.vehicles.splice(
         lastCrawl.vehicles.findIndex((v) => v.plate === oldVehicle.plate),
         1
