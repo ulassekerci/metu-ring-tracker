@@ -6,6 +6,17 @@ import sql from './db'
 const app = new Hono()
 
 app.get('/', async (c) => {
+  const ringTrips = await getRingData()
+  return c.json(ringTrips)
+})
+
+app.get('/times', async (c) => {
+  const ringTrips = await getRingData()
+  const ringTimes = listRingTimes(ringTrips)
+  return c.json(ringTimes)
+})
+
+const getRingData = async () => {
   const ringData = (await sql`SELECT * FROM ring_history ORDER BY timestamp DESC`) as RingLog[]
   const ringTripIDs = [...new Set(ringData.map((log) => log.trip_id))]
 
@@ -30,8 +41,8 @@ app.get('/', async (c) => {
     }
   })
 
-  return c.json(ringTrips)
-})
+  return ringTrips
+}
 
 const findClosestStartTime = (tripTime: DateTime) => {
   const closest20thMinute = Math.round(tripTime.minute / 20) * 20
@@ -40,6 +51,16 @@ const findClosestStartTime = (tripTime: DateTime) => {
     minute: isWeekendOrNight ? 30 : closest20thMinute,
     second: 0,
   })
+}
+
+const listRingTimes = (ringTrips: { departure: string }[]) => {
+  const ringTimes: { time: string; trips: number }[] = []
+  ringTrips.map((trip) => {
+    const existingTime = ringTimes.find((time) => time.time === trip.departure)
+    if (existingTime) existingTime.trips += 1
+    else ringTimes.push({ time: trip.departure, trips: 1 })
+  })
+  return ringTimes.sort((a, b) => a.time.localeCompare(b.time))
 }
 
 export default app
