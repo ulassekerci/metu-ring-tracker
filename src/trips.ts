@@ -8,10 +8,6 @@ const app = new Hono()
 app.get('/', async (c) => {
   const ringData = (await sql`SELECT * FROM ring_history ORDER BY timestamp DESC`) as RingLog[]
   const ringTripIDs = [...new Set(ringData.map((log) => log.trip_id))]
-  const failedTrips = ringTripIDs.filter((tripID) => ringData.filter((log) => log.trip_id === tripID).length < 30)
-  failedTrips.map(async (tripID) => {
-    await sql`DELETE FROM ring_history WHERE trip_id = ${tripID}`
-  })
 
   const ringTrips = ringTripIDs.map((tripID) => {
     const tripLogs = ringData.filter((log) => log.trip_id === tripID)
