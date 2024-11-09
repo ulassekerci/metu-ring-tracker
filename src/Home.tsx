@@ -5,11 +5,11 @@ export default function Home() {
     <Map
       initialViewState={{
         longitude: 32.778,
-        latitude: 39.891,
-        zoom: 13.15,
+        latitude: 39.89,
+        zoom: 13.09,
       }}
       style={{ height: '100vh' }}
-      mapStyle='https://tiles.openfreemap.org/styles/bright'
+      mapStyle='/mapstyle.json'
       attributionControl={false}
     />
   )
