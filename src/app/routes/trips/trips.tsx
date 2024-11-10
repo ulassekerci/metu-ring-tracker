@@ -1,9 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { deleteTrip, fetchTrips, TripData } from '../helpers/tripFetchers'
 import { DateTime, Duration } from 'luxon'
 import { Link } from 'react-router-dom'
 import { useLocalStorage } from 'usehooks-ts'
-import cx from 'classix'
+import { deleteTrip, fetchTrips, TripData } from '@/features/trips/api'
+import { cn } from '@/utils/cn'
 
 export default function Trips() {
   const queryClient = useQueryClient()
@@ -99,7 +99,7 @@ export default function Trips() {
                         View Trip
                       </Link>
                       <p
-                        className={cx(
+                        className={cn(
                           'bg-red-500 text-white px-6 py-3 rounded-md mr-2 cursor-pointer',
                           tripDeleteMutation.isPending && 'opacity-50'
                         )}

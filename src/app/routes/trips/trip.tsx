@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { deleteTrip, fetchTrip } from '../helpers/tripFetchers'
+import { deleteTrip, fetchTrip } from '@/features/trips/api'
 import { DateTime, Duration } from 'luxon'
 import { useNavigate, useParams } from 'react-router-dom'
 
