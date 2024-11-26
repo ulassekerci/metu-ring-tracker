@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:3000/trips'
+const baseURL = import.meta.env.VITE_API_URL + '/trips'
 
 export interface TripData {
   tripID: string
@@ -34,4 +34,9 @@ export const fetchTrip = async (tripID: string) => {
 
 export const deleteTrip = async (tripID: string) => {
   await axios.delete(`${baseURL}/${tripID}`)
+}
+
+export const deleteTrips = async (tripIDs?: string[]) => {
+  if (!tripIDs) return
+  return Promise.all(tripIDs.map((tripID) => deleteTrip(tripID)))
 }
