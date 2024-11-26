@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { DateTime, Duration } from 'luxon'
 import { Link } from 'react-router-dom'
 import { useLocalStorage } from 'usehooks-ts'
-import { deleteTrip, fetchTrips, TripData } from '@/features/trips/api'
+import { deleteTrip, deleteTrips, fetchTrips, TripData } from '@/features/trips/api'
 import { cn } from '@/utils/cn'
 
 export default function Trips() {
@@ -19,14 +19,25 @@ export default function Trips() {
     onSettled: () => queryClient.invalidateQueries({ queryKey: ['trips'] }),
   })
 
+  const suspiciousDeleteMutation = useMutation({
+    mutationFn: (tripIDs?: string[]) => deleteTrips(tripIDs),
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ['trips'] }),
+  })
+
   const filterSuspicious = (trip: TripData) => {
+    const tripDate = DateTime.fromJSDate(new Date(trip.points[0].timestamp))
     const reversePoints = trip.points.slice().reverse()
     const ringColor = reversePoints[0].color.toUpperCase()
+
+    // if live, return false
+    const isLive = tripDate.diffNow('minutes').minutes > -3
+    if (isLive) return false
+
     // if starts as red
     if (ringColor === '#FF0000') return true
-    // if yellow and duration is less than 2000 or address doesn't include A2 or Garaj
+    // if yellow with unexpected duration or address
     if (ringColor === '#FFFF57') {
-      if (trip.duration < 1900) return true
+      if (trip.duration < 1800 || trip.duration > 4000) return true
       if (!reversePoints[0].address.includes('A2') && !reversePoints[0].address.includes('Garaj')) return true
       if (
         !trip.points[0].address.includes('A2') &&
@@ -44,7 +55,7 @@ export default function Trips() {
 
     // if purple with unexpected duration or address
     if (ringColor === '#9600CD') {
-      if (trip.duration < 900 || trip.duration > 1800) return true
+      if (trip.duration < 900 || trip.duration > 2000) return true
       if (!reversePoints[0].address.includes('A1')) return true
       if (!trip.points[0].address.includes('A1')) return true
     }
@@ -55,16 +66,29 @@ export default function Trips() {
     <div className='max-w-screen-xl mx-auto'>
       <div className='flex justify-between items-center'>
         <p className='font-medium text-xl text-slate-800 my-4'>Ring Trips</p>
-        <div className='flex gap-1 items-center'>
-          <input
-            type='checkbox'
-            id='toggleSuspicious'
-            checked={showSuspicious}
-            onChange={() => setShowSuspicious(!showSuspicious)}
-          />
-          <label htmlFor='toggleSuspicious' className='cursor-pointer'>
-            Show Only Suspicious
-          </label>
+        <div className='flex flex-col items-end'>
+          <div className='flex gap-1 items-center'>
+            <input
+              type='checkbox'
+              id='toggleSuspicious'
+              checked={showSuspicious}
+              onChange={() => setShowSuspicious(!showSuspicious)}
+            />
+            <label htmlFor='toggleSuspicious' className='cursor-pointer'>
+              Show Only Suspicious
+            </label>
+          </div>
+          {showSuspicious && (
+            <span
+              className='text-red-500 cursor-pointer'
+              onClick={() =>
+                confirm('Delete all suspicious trips?') &&
+                suspiciousDeleteMutation.mutate(trips?.filter(filterSuspicious).map((trip) => trip.tripID))
+              }
+            >
+              Delete All Suspicious
+            </span>
+          )}
         </div>
       </div>
 
