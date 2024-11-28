@@ -1,6 +1,4 @@
-import axios from 'axios'
-
-const baseURL = import.meta.env.VITE_API_URL + '/trips'
+import { api } from '@/lib/queryClient'
 
 export interface TripData {
   tripID: string
@@ -23,17 +21,17 @@ interface RingPoint {
 }
 
 export const fetchTrips = async () => {
-  const response = await axios.get(baseURL)
+  const response = await api.get('/trips')
   return response.data as TripData[]
 }
 
 export const fetchTrip = async (tripID: string) => {
-  const response = await axios.get(`${baseURL}/${tripID}`)
+  const response = await api.get(`/trips/${tripID}`)
   return response.data as TripData
 }
 
 export const deleteTrip = async (tripID: string) => {
-  await axios.delete(`${baseURL}/${tripID}`)
+  await api.delete(`/trips/${tripID}`)
 }
 
 export const deleteTrips = async (tripIDs?: string[]) => {

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { api } from '@/lib/queryClient'
 
 export interface AvgPoint {
   id: number
@@ -28,11 +28,11 @@ export interface LivePoint {
 }
 
 export const fetchAverages = async () => {
-  const response = await axios.get(`${import.meta.env.VITE_API_URL}/averages`)
+  const response = await api.get(`/averages`)
   return response.data as AvgPoint[]
 }
 
 export const fetchLive = async () => {
-  const response = await axios.get(`${import.meta.env.VITE_API_URL}`)
+  const response = await api.get(`/`)
   return response.data as LiveData
 }
