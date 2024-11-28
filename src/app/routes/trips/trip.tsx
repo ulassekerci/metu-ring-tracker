@@ -1,24 +1,14 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { deleteTrip, fetchTrip } from '@/features/trips/api'
+import { useTrip } from '@/features/trips/data/get'
 import { DateTime, Duration } from 'luxon'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { useDeleteTrip } from '@/features/trips/data/delete'
 
 export default function Trip() {
   const { tripID } = useParams()
-  const navigate = useNavigate()
-  const queryClient = useQueryClient()
   if (!tripID) return <p>No trip ID provided.</p>
 
-  const { data: trip, error } = useQuery({
-    queryKey: ['trips', tripID],
-    queryFn: () => fetchTrip(tripID),
-  })
-
-  const deleteMutation = useMutation({
-    mutationFn: () => deleteTrip(tripID),
-    onSettled: () => queryClient.invalidateQueries({ queryKey: ['trips', tripID] }),
-    onSuccess: () => navigate('/trips'),
-  })
+  const { data: trip, error } = useTrip(tripID)
+  const deleteMutation = useDeleteTrip()
 
   return (
     <div className='max-w-screen-xl mx-auto'>
@@ -35,7 +25,7 @@ export default function Trip() {
             </div>
 
             <div>
-              <p className='text-red-500 cursor-pointer' onClick={() => deleteMutation.mutate()}>
+              <p className='text-red-500 cursor-pointer' onClick={() => deleteMutation.mutate(tripID)}>
                 {deleteMutation.isPending ? 'Deleting...' : 'Delete Trip'}
               </p>
             </div>

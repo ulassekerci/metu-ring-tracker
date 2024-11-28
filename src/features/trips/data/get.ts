@@ -1,4 +1,5 @@
 import { api } from '@/lib/queryClient'
+import { useQuery } from '@tanstack/react-query'
 
 export interface TripData {
   tripID: string
@@ -30,11 +31,16 @@ export const fetchTrip = async (tripID: string) => {
   return response.data as TripData
 }
 
-export const deleteTrip = async (tripID: string) => {
-  await api.delete(`/trips/${tripID}`)
+export const useTrips = () => {
+  return useQuery({
+    queryKey: ['trips'],
+    queryFn: fetchTrips,
+  })
 }
 
-export const deleteTrips = async (tripIDs?: string[]) => {
-  if (!tripIDs) return
-  return Promise.all(tripIDs.map((tripID) => deleteTrip(tripID)))
+export const useTrip = (tripID: string) => {
+  return useQuery({
+    queryKey: ['trip', tripID],
+    queryFn: () => fetchTrip(tripID),
+  })
 }

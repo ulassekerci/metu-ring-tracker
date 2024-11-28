@@ -1,14 +1,5 @@
 import { api } from '@/lib/queryClient'
-
-export interface AvgPoint {
-  id: number
-  lat: string
-  lng: string
-  address: string
-  color: string
-  departure: string
-  time: string
-}
+import { useQuery } from '@tanstack/react-query'
 
 export interface LiveData {
   data: LivePoint[]
@@ -27,12 +18,15 @@ export interface LivePoint {
   id: string
 }
 
-export const fetchAverages = async () => {
-  const response = await api.get(`/averages`)
-  return response.data as AvgPoint[]
-}
-
-export const fetchLive = async () => {
+const fetchLive = async () => {
   const response = await api.get(`/`)
   return response.data as LiveData
+}
+
+export const useLiveData = () => {
+  return useQuery({
+    queryKey: ['livedata'],
+    queryFn: () => fetchLive(),
+    refetchInterval: 1000,
+  })
 }
