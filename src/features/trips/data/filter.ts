@@ -34,7 +34,7 @@ export const filterSuspicious = (trip: TripData) => {
 
   // if purple with unexpected duration or address
   if (ringColor === '#9600CD') {
-    if (trip.duration < 900 || trip.duration > 2000) return true
+    if (trip.duration < 900 || trip.duration > 2400) return true
     if (!reversePoints[0].address.includes('A1')) return true
     if (!trip.points[0].address.includes('A1')) return true
   }
