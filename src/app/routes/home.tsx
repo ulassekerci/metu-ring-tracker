@@ -54,6 +54,11 @@ export default function Home() {
           <BusPin key={point.id} point={point} />
         ))}
       </Map>
+      <div className='absolute right-2 bottom-2 px-1 text-xs bg-white bg-opacity-50 rounded-full'>
+        <a href='https://www.openstreetmap.org/copyright' target='_blank'>
+          © OpenStreetMap
+        </a>
+      </div>
     </>
   )
 }
