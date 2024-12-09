@@ -1,4 +1,5 @@
 import { Ghost } from '@/features/pins/components/Ghost'
+import { BusPin } from '@/features/pins/components/Pin'
 import { AvgPoint, getGhostLocations, useAverageData } from '@/features/pins/data/average'
 import { LivePoint, useLiveData } from '@/features/pins/data/live'
 import { useEffect, useState } from 'react'
@@ -50,9 +51,7 @@ export default function Home() {
           </Marker>
         ))}
         {livePoints.map((point) => (
-          <Marker key={point.id} longitude={Number(point.lng)} latitude={Number(point.lat)}>
-            <img width={24} height={24} src='./favicon.ico' />
-          </Marker>
+          <BusPin key={point.id} point={point} />
         ))}
       </Map>
     </>
