@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 export interface LiveData {
   data: LivePoint[]
   timestamp: string
+  vehicles: LiveVehicle[]
 }
 
 export interface LivePoint {
@@ -16,6 +17,13 @@ export interface LivePoint {
   ago: number
   key: string
   id: string
+}
+
+export interface LiveVehicle {
+  tripID: string
+  plate: string
+  color: string
+  state: string
 }
 
 const fetchLive = async () => {
