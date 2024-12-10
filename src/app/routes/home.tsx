@@ -44,6 +44,11 @@ export default function Home() {
         style={{ height: '100vh' }}
         mapStyle='/mapstyle.json'
         attributionControl={false}
+        minZoom={13}
+        maxBounds={[
+          [32.686, 39.856],
+          [32.873, 39.936],
+        ]}
       >
         {ghostPoints.map((point) => (
           <Marker key={point.id} longitude={Number(point.lng)} latitude={Number(point.lat)}>
