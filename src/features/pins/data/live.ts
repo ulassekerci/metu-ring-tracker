@@ -24,6 +24,7 @@ export interface LiveVehicle {
   plate: string
   color: string
   state: string
+  departure: string | null
 }
 
 const fetchLive = async () => {

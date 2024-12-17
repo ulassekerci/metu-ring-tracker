@@ -1,7 +1,7 @@
 import { Ghost } from '@/features/pins/components/Ghost'
 import { BusPin } from '@/features/pins/components/Pin'
 import { AvgPoint, getGhostLocations, useAverageData } from '@/features/pins/data/average'
-import { LiveData, useLiveData } from '@/features/pins/data/live'
+import { useLiveData } from '@/features/pins/data/live'
 import { useEffect, useState } from 'react'
 import Map, { Marker } from 'react-map-gl/maplibre'
 
@@ -13,7 +13,7 @@ export default function Home() {
 
   const updateGhosts = () => {
     if (!avgData) return
-    const newGhostPoints = getGhostLocations(avgData)
+    const newGhostPoints = getGhostLocations(avgData, liveData)
     setGhostPoints(newGhostPoints)
   }
 
