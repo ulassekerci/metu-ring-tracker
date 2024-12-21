@@ -31,7 +31,6 @@ export const getGhostLocations = (avgData: AvgPoint[], liveData?: LiveData) => {
   const ghostPoints: AvgPoint[] = []
   const ghostDepartures = new Set(avgData.map((point) => point.departure))
   ghostDepartures.forEach((departure) => {
-    console.log(departure)
     const liveBus = liveData?.vehicles.find((bus) => bus.departure === departure)
     if (liveBus) return
     const points = avgData.filter((point) => point.departure === departure)

@@ -13,7 +13,6 @@ export const GhostPin = ({ point }: { point: AvgPoint }) => {
 }
 
 export const BusPin = ({ point }: { point: LivePoint }) => {
-  console.log('point', point)
   const ringIcon = getFileName(point.clr)
   return (
     <Marker key={point.id} longitude={Number(point.lng)} latitude={Number(point.lat)}>
