@@ -2,8 +2,8 @@ import { api } from '@/lib/queryClient'
 import { useQuery } from '@tanstack/react-query'
 
 export interface LiveData {
-  data: LivePoint[]
-  timestamp: string
+  data: LivePoint[] | null
+  timestamp: string | null // null only on local (crawler disabled)
   vehicles: LiveVehicle[]
 }
 

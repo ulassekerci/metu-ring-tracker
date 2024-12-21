@@ -45,7 +45,7 @@ export default function Home() {
             <Ghost color={point.color} />
           </Marker>
         ))}
-        {liveData?.data.map((point) => (
+        {liveData?.data?.map((point) => (
           <BusPin key={point.id} point={point} />
         ))}
       </Map>
