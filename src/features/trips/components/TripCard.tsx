@@ -2,7 +2,7 @@ import { DateTime, Duration } from 'luxon'
 import { TripData } from '../data/get'
 import { Link } from 'react-router-dom'
 import { useDeleteTrip } from '../data/delete'
-import { cn } from '@/utils/cn'
+import Button from '@/components/Button'
 
 export const TripCard = ({ trip }: { trip: TripData }) => {
   const tripDate = DateTime.fromJSDate(new Date(trip.points[0].timestamp))
@@ -27,19 +27,17 @@ export const TripCard = ({ trip }: { trip: TripData }) => {
             <p className='text-lg'>Live</p>
           </div>
         ) : (
-          <div className='flex flex-col gap-2'>
-            <Link to={`/trips/${trip.tripID}`} className='bg-slate-700 text-white px-6 py-3 rounded-md mr-2'>
-              View Trip
+          <div className='flex flex-col gap-2 px-2'>
+            <Link to={`/trips/${trip.tripID}`}>
+              <Button className='bg-slate-700 hover:bg-slate-800 text-white px-6 py-3 w-36'>View Trip</Button>
             </Link>
-            <p
-              className={cn(
-                'bg-red-500 text-white px-6 py-3 rounded-md mr-2 cursor-pointer',
-                tripDeleteMutation.isPending && 'opacity-50'
-              )}
+            <Button
+              className='px-6 py-3 cursor-pointer'
+              disabled={tripDeleteMutation.isPending}
               onClick={() => tripDeleteMutation.mutate(trip.tripID)}
             >
               Delete Trip
-            </p>
+            </Button>
           </div>
         )}
       </div>

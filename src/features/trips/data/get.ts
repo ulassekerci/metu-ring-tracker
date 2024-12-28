@@ -21,8 +21,8 @@ interface RingPoint {
   timestamp: string
 }
 
-export const fetchTrips = async () => {
-  const response = await api.get('/trips')
+export const fetchTrips = async (startDate: string, endDate: string) => {
+  const response = await api.get(`/trips?start=${startDate}&end=${endDate}`)
   return response.data as TripData[]
 }
 
@@ -31,10 +31,10 @@ export const fetchTrip = async (tripID: string) => {
   return response.data as TripData
 }
 
-export const useTrips = () => {
+export const useTrips = (startDate: string, endDate: string) => {
   return useQuery({
-    queryKey: ['trips'],
-    queryFn: fetchTrips,
+    queryKey: ['trips', startDate, endDate],
+    queryFn: () => fetchTrips(startDate, endDate),
   })
 }
 
