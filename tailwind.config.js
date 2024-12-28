@@ -1,11 +1,17 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require('tailwindcss/colors')
+
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+      colors: {
+        primary: {
+          DEFAULT: colors.red[600],
+          dark: colors.red[700],
+        },
       },
+      fontFamily: { sans: ['Inter', 'sans-serif'] },
     },
   },
   plugins: [],
