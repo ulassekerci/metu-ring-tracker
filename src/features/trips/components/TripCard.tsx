@@ -13,7 +13,7 @@ export const TripCard = ({ trip }: { trip: TripData }) => {
     <div className='flex justify-between items-center border border-slate-300 text-slate-800 rounded-xl p-2 my-4'>
       <div>
         <p>Trip ID: {trip.tripID}</p>
-        <p>Departure: {`${tripDate.toFormat('LLL dd')} ${trip.departure}`}</p>
+        <p>Departure: {`${tripDate.minus({ hours: 3 }).toFormat('LLL dd')} ${trip.departure}`}</p>
         <p>Duration: {Duration.fromObject({ seconds: trip.duration }).toFormat('mm:ss')}</p>
         <p>Color: {trip.points[trip.points.length - 1].state.split('-').findLast(() => true)}</p>
         <p>Plate: {trip.plate}</p>
