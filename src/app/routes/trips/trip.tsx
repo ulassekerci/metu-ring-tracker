@@ -12,7 +12,7 @@ export default function Trip() {
 
   return (
     <div className='max-w-screen-xl mx-auto'>
-      <p className='font-medium text-xl text-slate-800 my-4'>Ring Trip</p>
+      <p className='font-medium text-xl my-4'>Ring Trip</p>
 
       {trip ? (
         <>
@@ -32,7 +32,7 @@ export default function Trip() {
           </div>
 
           {trip.points.map((point) => (
-            <div key={point.id} className='border border-slate-300 text-slate-800 rounded-xl p-2 my-4'>
+            <div key={point.id} className='border border-slate-300 rounded-xl p-2 my-4'>
               <p>Address: {point.address}</p>
               <p>State: {point.state}</p>
               <p>TimeStamp: {DateTime.fromISO(point.timestamp).toFormat('LLL dd HH:mm')}</p>

@@ -10,7 +10,7 @@ export const TripCard = ({ trip }: { trip: TripData }) => {
   const tripDeleteMutation = useDeleteTrip()
 
   return (
-    <div className='flex justify-between items-center border border-slate-300 text-slate-800 rounded-xl p-2 my-4'>
+    <div className='flex justify-between items-center border border-slate-300 rounded-xl p-2 my-4'>
       <div>
         <p>Trip ID: {trip.tripID}</p>
         <p>Departure: {`${tripDate.minus({ hours: 3 }).toFormat('LLL dd')} ${trip.departure}`}</p>

@@ -28,7 +28,7 @@ export default function Trips() {
   return (
     <div className='max-w-screen-xl mx-auto'>
       <div className='flex justify-between items-center mt-2'>
-        <p className='font-medium text-xl text-slate-800 my-4'>Ring Trips</p>
+        <p className='font-medium text-xl my-4'>Ring Trips</p>
         <div className='flex gap-4'>
           <DateSelector startDate={startDate} setStartDate={setStartDate} />
           <DateSelector startDate={endDate} setStartDate={setEndDate} />
