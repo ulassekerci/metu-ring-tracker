@@ -5,12 +5,13 @@ import { filterSuspicious } from '@/features/trips/data/filter'
 import { TripCard } from '@/features/trips/components/TripCard'
 import { DateTime } from 'luxon'
 import { DateSelector, TripFilterItem } from '@/features/trips/components/TripFilters'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 export default function Trips() {
   const [showSuspicious, setShowSuspicious] = useLocalStorage('sus', false)
-  const [startDate, setStartDate] = useLocalStorage('startDate', DateTime.now().minus({ days: 3 }).toISODate())
-  const [endDate, setEndDate] = useLocalStorage('endDate', DateTime.now().toISODate())
+  const [startDate, setStartDate] = useState(DateTime.now().minus({ days: 3 }).toISODate())
+  const [endDate, setEndDate] = useState(DateTime.now().toISODate())
 
   const { data: trips, isLoading: isTripsLoading } = useTrips(startDate, endDate)
   const tripDeleteMutation = useDeleteTrips()

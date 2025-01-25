@@ -49,7 +49,7 @@ export default function Home() {
           <span className='font-medium'>Kalkış 15.00</span>
         </div>
         <div className='h-14 bg-white rounded-b-xl flex justify-between items-center px-4 shadow-xl'>
-          <span className='font-medium'>Durak Ara</span>
+          <span>Durak Ara</span>
           <SearchIcon className='w-6 h-6' />
         </div>
       </div>
