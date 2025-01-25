@@ -24,7 +24,7 @@ export const Login = () => {
     try {
       const token = await loginMutation.mutateAsync({ email, password })
       Cookies.set('token', token)
-      navigate('/trips')
+      navigate('/dashboard')
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.message || 'An error occurred')
