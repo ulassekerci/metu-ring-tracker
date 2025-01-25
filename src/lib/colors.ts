@@ -15,5 +15,5 @@ const colorDict = [
   { color: 'yellow', hex: '#ffff57', better: '#ffcc00', file: 'ring-yellow.png' },
   { color: 'purple', hex: '#9600CD', better: '#b366ff', file: 'ring-purple.png' },
   { color: 'brown', hex: '#A64D00', better: '#d97706', file: 'ring-brown.png' },
-  { color: 'gray', hex: '#808080', better: '#808080', file: 'ring-gray.png' }, // not sure about this one
+  { color: 'gray', hex: '#737373', better: '#737373', file: 'ring-gray.png' },
 ]
