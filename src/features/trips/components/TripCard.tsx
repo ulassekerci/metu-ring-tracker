@@ -28,11 +28,11 @@ export const TripCard = ({ trip }: { trip: TripData }) => {
           </div>
         ) : (
           <div className='flex flex-col gap-2 px-2'>
-            <Link to={`/trips/${trip.tripID}`}>
+            <Link to={`${trip.tripID}`}>
               <Button className='bg-slate-700 hover:bg-slate-800 text-white px-6 py-3 w-36'>View Trip</Button>
             </Link>
             <Button
-              className='px-6 py-3 cursor-pointer'
+              className='px-6 py-3'
               disabled={tripDeleteMutation.isPending}
               onClick={() => tripDeleteMutation.mutate(trip.tripID)}
             >

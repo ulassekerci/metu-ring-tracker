@@ -6,7 +6,7 @@ import { getFileName } from '@/lib/colors'
 
 export const GhostPin = ({ point }: { point: AvgPoint }) => {
   return (
-    <Marker key={point.id} longitude={Number(point.lng)} latitude={Number(point.lat)}>
+    <Marker longitude={Number(point.lng)} latitude={Number(point.lat)}>
       <Ghost color={point.color} />
     </Marker>
   )
@@ -15,7 +15,7 @@ export const GhostPin = ({ point }: { point: AvgPoint }) => {
 export const BusPin = ({ point }: { point: LivePoint }) => {
   const ringIcon = getFileName(point.clr)
   return (
-    <Marker key={point.id} longitude={Number(point.lng)} latitude={Number(point.lat)}>
+    <Marker longitude={Number(point.lng)} latitude={Number(point.lat)}>
       <img width={24} height={24} src={ringIcon} />
     </Marker>
   )

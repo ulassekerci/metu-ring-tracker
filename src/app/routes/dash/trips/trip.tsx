@@ -1,18 +1,19 @@
 import { useTrip } from '@/features/trips/data/get'
 import { DateTime, Duration } from 'luxon'
 import { useParams } from 'react-router-dom'
-import { useDeleteTrip } from '@/features/trips/data/delete'
+import { useDeleteTripAndRedirect } from '@/features/trips/data/delete'
+import Button from '@/components/Button'
 
 export default function Trip() {
   const { tripID } = useParams()
   if (!tripID) return <p>No trip ID provided.</p>
 
   const { data: trip, error } = useTrip(tripID)
-  const deleteMutation = useDeleteTrip()
+  const deleteMutation = useDeleteTripAndRedirect()
 
   return (
-    <div className='max-w-screen-xl mx-auto'>
-      <p className='font-medium text-xl my-4'>Ring Trip</p>
+    <div className='w-[75vw]'>
+      <p className='font-medium text-xl mb-4'>Ring Trip</p>
 
       {trip ? (
         <>
@@ -25,9 +26,13 @@ export default function Trip() {
             </div>
 
             <div>
-              <p className='text-red-500 cursor-pointer' onClick={() => deleteMutation.mutate(tripID)}>
-                {deleteMutation.isPending ? 'Deleting...' : 'Delete Trip'}
-              </p>
+              <Button
+                className='px-6 py-3'
+                disabled={deleteMutation.isPending}
+                onClick={() => deleteMutation.mutate(tripID)}
+              >
+                Delete Trip
+              </Button>
             </div>
           </div>
 
