@@ -12,9 +12,7 @@ export default function Dashboard() {
   return (
     <div className='flex'>
       <div className='w-[20vw] p-4 h-full'>
-        <div className='flex items-center gap-2 w-48 mx-auto px-4 mb-8'>
-          <p className='font-medium text-xl my-4 text-center'>RingTahmin</p>
-        </div>
+        <p className='font-medium text-xl my-4 text-center mb-12'>RingTahmin</p>
         <nav className='flex flex-col gap-2 items-center text-slate-500'>
           {routes.map((route) => (
             <NavLink

@@ -13,8 +13,6 @@ export default function Trip() {
 
   return (
     <div className='w-[75vw]'>
-      <p className='font-medium text-xl mb-4'>Ring Trip</p>
-
       {trip ? (
         <>
           <div className='flex justify-between'>

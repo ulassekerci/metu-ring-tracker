@@ -21,14 +21,14 @@ interface RingPoint {
   timestamp: string
 }
 
-export const fetchTrips = async (startDate: string, endDate: string) => {
-  const response = await api.get(`/trips?start=${startDate}&end=${endDate}`)
-  return response.data as TripData[]
+const fetchTrips = async (startDate: string, endDate: string) => {
+  const response = await api.get<TripData[]>(`/trips?start=${startDate}&end=${endDate}`)
+  return response.data
 }
 
-export const fetchTrip = async (tripID: string) => {
-  const response = await api.get(`/trips/${tripID}`)
-  return response.data as TripData
+const fetchTrip = async (tripID: string) => {
+  const response = await api.get<TripData>(`/trips/${tripID}`)
+  return response.data
 }
 
 export const useTrips = (startDate: string, endDate: string) => {

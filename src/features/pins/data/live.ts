@@ -28,8 +28,8 @@ export interface LiveVehicle {
 }
 
 const fetchLive = async () => {
-  const response = await api.get(`/`)
-  return response.data as LiveData
+  const response = await api.get<LiveData>(`/`)
+  return response.data
 }
 
 export const useLiveData = () => {

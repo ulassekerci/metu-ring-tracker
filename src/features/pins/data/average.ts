@@ -12,8 +12,8 @@ export interface AvgPoint {
 }
 
 export const fetchAverages = async () => {
-  const response = await api.get(`/averages`)
-  return response.data as AvgPoint[]
+  const response = await api.get<AvgPoint[]>(`/averages`)
+  return response.data
 }
 
 export const useAverageData = () => {
