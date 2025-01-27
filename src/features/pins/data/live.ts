@@ -8,15 +8,15 @@ export interface LiveData {
 }
 
 export interface LivePoint {
-  lat: string
-  lng: string
-  addr: string
-  dir: number
-  sp: string
-  clr: string
-  ago: number
-  key: string
-  id: string
+  lat: string // latitude
+  lng: string // longitude
+  addr: string // address
+  dir: number // direction (0-8, one per 45 degrees)
+  sp: string // speed
+  clr: string // color
+  ago: number // data age
+  key: string // state
+  id: string // license plate
 }
 
 export interface LiveVehicle {

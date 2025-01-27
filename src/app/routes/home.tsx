@@ -1,10 +1,9 @@
-import { InfoBox } from '@/features/box/components/box'
-import { Ghost } from '@/features/pins/components/Ghost'
-import { BusPin } from '@/features/pins/components/Pin'
+import { InfoBox } from '@/features/box/components/Box'
+import { BusPin, GhostPin } from '@/features/pins/components/Pin'
 import { useAverageData } from '@/features/pins/data/average'
 import { useLiveData } from '@/features/pins/data/live'
 import { CircleHelpIcon, MenuIcon } from 'lucide-react'
-import Map, { Marker } from 'react-map-gl/maplibre'
+import Map from 'react-map-gl/maplibre'
 
 export default function Home() {
   const { data: ghostData } = useAverageData()
@@ -36,9 +35,7 @@ export default function Home() {
         ]}
       >
         {ghostData?.map((point) => (
-          <Marker key={point.id} longitude={Number(point.lng)} latitude={Number(point.lat)}>
-            <Ghost color={point.color} />
-          </Marker>
+          <GhostPin key={point.id} point={point} />
         ))}
         {liveData?.data?.map((point) => (
           <BusPin key={point.id} point={point} />
