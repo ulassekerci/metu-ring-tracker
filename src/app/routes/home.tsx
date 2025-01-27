@@ -1,4 +1,4 @@
-import { InfoBox } from '@/features/box/components/Box'
+import { InfoBox } from '@/features/box/components/InfoBox'
 import { BusPin, GhostPin } from '@/features/pins/components/Pin'
 import { useAverageData } from '@/features/pins/data/average'
 import { useLiveData } from '@/features/pins/data/live'
