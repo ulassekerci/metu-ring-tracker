@@ -1,8 +1,9 @@
+import { InfoBox } from '@/features/box/components/box'
 import { Ghost } from '@/features/pins/components/Ghost'
 import { BusPin } from '@/features/pins/components/Pin'
 import { useAverageData } from '@/features/pins/data/average'
 import { useLiveData } from '@/features/pins/data/live'
-import { CircleHelpIcon, MenuIcon, SearchIcon } from 'lucide-react'
+import { CircleHelpIcon, MenuIcon } from 'lucide-react'
 import Map, { Marker } from 'react-map-gl/maplibre'
 
 export default function Home() {
@@ -43,16 +44,8 @@ export default function Home() {
           <BusPin key={point.id} point={point} />
         ))}
       </Map>
-      <div className='absolute bottom-12 left-1/2 -translate-x-1/2 w-[90%] md:w-96 h-28'>
-        <div className='h-14 bg-primary rounded-t-xl flex justify-between items-center px-4 text-white'>
-          <span className='font-medium'>Sarı-Kırmızı Ring</span>
-          <span className='font-medium'>Kalkış 15.00</span>
-        </div>
-        <div className='h-14 bg-white rounded-b-xl flex justify-between items-center px-4 shadow-xl'>
-          <span>Durak Ara</span>
-          <SearchIcon className='w-6 h-6' />
-        </div>
-      </div>
+      <InfoBox />
+
       <div className='absolute right-2 bottom-2 px-1 text-xs bg-white bg-opacity-50 rounded-full'>
         <a href='https://www.openstreetmap.org/copyright' target='_blank'>
           © OpenStreetMap
