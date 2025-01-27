@@ -1,5 +1,5 @@
 import { cn } from '@/utils/cn'
-import { ClockIcon, HomeIcon, RouteIcon } from 'lucide-react'
+import { HomeIcon, RouteIcon } from 'lucide-react'
 import { NavLink, Outlet } from 'react-router-dom'
 
 const routes = [

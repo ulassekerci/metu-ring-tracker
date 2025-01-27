@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 import { motion } from 'motion/react'
 import { useInfoBoxStore } from '../store'
 import { cn } from '@/utils/cn'
-import { BusDisplay, GhostDisplay } from './pinData'
+import { BusDisplay, GhostDisplay } from './PinData'
 
 export const InfoBox = () => {
   const { data: schedule } = useSchedule()
