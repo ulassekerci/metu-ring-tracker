@@ -5,7 +5,6 @@ import { NavLink, Outlet } from 'react-router-dom'
 const routes = [
   { name: 'Home', path: '/dashboard', icon: <HomeIcon size={24} /> },
   { name: 'Trips', path: '/dashboard/trips', icon: <RouteIcon size={24} /> },
-  { name: 'Schedule', path: '/dashboard/schedule', icon: <ClockIcon size={24} /> },
 ]
 
 export default function Dashboard() {
