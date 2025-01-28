@@ -1,11 +1,10 @@
 import { getBetterColor } from '@/lib/colors'
-import { AvgPoint } from '../data/average'
 
-export const Ghost = ({ data: point, onClick }: { data: AvgPoint; onClick?: () => void }) => {
+export const Ghost = ({ color, onClick }: { color: string; onClick?: () => void }) => {
   return (
     <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24' onClick={onClick}>
       <path
-        fill={getBetterColor(point.color)}
+        fill={getBetterColor(color)}
         stroke='#ffffff'
         strokeLinecap='round'
         strokeLinejoin='round'
