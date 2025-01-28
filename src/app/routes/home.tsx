@@ -2,7 +2,7 @@ import { InfoBox } from '@/features/box/components/InfoBox'
 import { BusPin, GhostPin, OtherGhostPin } from '@/features/pins/components/Pin'
 import { useAverageData, useOtherGhosts } from '@/features/pins/data/average'
 import { useLiveData } from '@/features/pins/data/live'
-import Map, { FullscreenControl } from 'react-map-gl/maplibre'
+import Map from 'react-map-gl/maplibre'
 
 export default function Home() {
   const { data: ghostData } = useAverageData()
