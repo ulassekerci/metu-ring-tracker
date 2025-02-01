@@ -1,12 +1,12 @@
 import { create } from 'zustand'
-import { AvgPoint } from '../pins/data/average'
+import { MiddlePoint } from '../pins/data/ghosts'
 import { LivePoint } from '../pins/data/live'
 
 type Store = {
   selected: 'ghost' | 'bus' | null
-  ghostData: AvgPoint | null
+  ghostData: MiddlePoint | null
   busData: LivePoint | null
-  setGhostData: (data: AvgPoint) => void
+  setGhostData: (data: MiddlePoint) => void
   setBusData: (data: LivePoint) => void
   closeBox: () => void
 }

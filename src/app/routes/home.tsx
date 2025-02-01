@@ -1,13 +1,14 @@
 import { InfoBox } from '@/features/box/components/InfoBox'
+import { useInfoBoxStore } from '@/features/box/store'
 import { BusPin, GhostPin, OtherGhostPin } from '@/features/pins/components/Pin'
-import { useAverageData, useOtherGhosts } from '@/features/pins/data/average'
+import { useGhostData } from '@/features/pins/data/ghosts'
 import { useLiveData } from '@/features/pins/data/live'
 import Map from 'react-map-gl/maplibre'
 
 export default function Home() {
-  const { data: ghostData } = useAverageData()
+  const { data: ghostData } = useGhostData()
   const { data: liveData } = useLiveData()
-  const { data: otherGhosts } = useOtherGhosts()
+  const { selected, ghostData: selectedGhost } = useInfoBoxStore()
 
   return (
     <>
@@ -26,15 +27,16 @@ export default function Home() {
           [32.873, 39.936],
         ]}
       >
-        {ghostData?.map((point) => (
-          <GhostPin key={point.id} point={point} />
+        {ghostData?.map((trip) => (
+          <GhostPin key={trip.middlePoint.id} point={trip.middlePoint} />
         ))}
         {liveData?.data?.map((point) => (
           <BusPin key={point.id} point={point} />
         ))}
-        {otherGhosts?.map((point) => (
-          <OtherGhostPin key={point.id} point={point} />
-        ))}
+        {selected === 'ghost' &&
+          ghostData
+            ?.find((data) => data.departure === selectedGhost?.departure)
+            ?.trips.map((point) => <OtherGhostPin key={point.id} point={point} />)}
       </Map>
       <InfoBox />
 

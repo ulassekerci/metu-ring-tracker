@@ -34,7 +34,7 @@ const fetchLive = async () => {
 
 export const useLiveData = () => {
   return useQuery({
-    queryKey: ['livedata'],
+    queryKey: ['live'],
     queryFn: () => fetchLive(),
     refetchInterval: 1000,
   })

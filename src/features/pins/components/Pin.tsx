@@ -2,10 +2,10 @@ import { Marker } from 'react-map-gl'
 import { LivePoint } from '../data/live'
 import { getFileName } from '@/lib/colors'
 import { useInfoBoxStore } from '@/features/box/store'
-import { AvgPoint, RingLog } from '../data/average'
+import { MiddlePoint, RingLog } from '../data/ghosts'
 import { Ghost } from './Ghost'
 
-export const GhostPin = ({ point }: { point: AvgPoint }) => {
+export const GhostPin = ({ point }: { point: MiddlePoint }) => {
   const { selected, ghostData, setGhostData } = useInfoBoxStore()
   if (selected === 'ghost' && ghostData?.departure !== point.departure) return null
   return (
@@ -26,8 +26,6 @@ export const BusPin = ({ point }: { point: LivePoint }) => {
 }
 
 export const OtherGhostPin = ({ point }: { point: RingLog }) => {
-  const { selected } = useInfoBoxStore()
-  if (selected !== 'ghost') return null
   return (
     <Marker longitude={Number(point.lng)} latitude={Number(point.lat)}>
       <Ghost color={point.color} />
