@@ -40,7 +40,7 @@ export default function Home() {
       </Map>
       <InfoBox />
 
-      <div className='absolute right-2 bottom-2 px-2 text-xs bg-white bg-opacity-50 rounded-full'>
+      <div className='absolute right-0 bottom-2 px-2 text-[9px] opacity-75 md:text-xs'>
         <a href='https://www.openstreetmap.org/copyright' target='_blank'>
           © OpenStreetMap
         </a>
