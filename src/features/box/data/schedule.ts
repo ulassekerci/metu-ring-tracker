@@ -23,12 +23,12 @@ export const getNextTrip = (schedule: Schedule[]) => {
   const filteredSchedule = schedule.filter((trip) => trip.weekend === isWeekend)
   const nextTripOfDay = filteredSchedule.find((trip) => {
     const tripTime = DateTime.fromFormat(trip.time, 'HH:mm:ss')
-    return tripTime > DateTime.now()
+    return tripTime > DateTime.now().minus({ minutes: 1 })
   })
   return nextTripOfDay || filteredSchedule[0]
 }
 
-export const getColorTrip = (color: string) => {
+export const getRingNameFromColor = (color: string) => {
   switch (color) {
     case '#FF0000':
       return 'Sarı-Kırmızı Ring'

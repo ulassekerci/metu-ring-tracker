@@ -1,4 +1,4 @@
-import { getColorTrip, getNextTrip, useSchedule } from '../data/schedule'
+import { getRingNameFromColor, getNextTrip, useSchedule } from '../data/schedule'
 import { DateTime } from 'luxon'
 import { motion } from 'motion/react'
 import { useInfoBoxStore } from '../store'
@@ -11,7 +11,7 @@ export const InfoBox = () => {
 
   if (!schedule) return null
   const nextTrip = getNextTrip(schedule)
-  const nextTripColor = getColorTrip(nextTrip?.color)
+  const nextTripColor = getRingNameFromColor(nextTrip?.color)
   const nextTripTime = DateTime.fromFormat(nextTrip.time, 'HH:mm:ss').toFormat('HH.mm')
 
   return (
