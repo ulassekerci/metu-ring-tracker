@@ -57,8 +57,8 @@ export const BusDisplay = () => {
         transition={{ delay: 0.1 }}
         className='items-center justify-between w-full h-14 px-4'
       >
-        <span className='font-medium'>Hız:</span>
-        <span className='text-slate-700'>{busData.sp} km/h</span>
+        <span className='font-medium'>Kalkış:</span>
+        <span className='text-slate-700'>{departureText}</span>
       </motion.div>
 
       <motion.div
@@ -67,8 +67,8 @@ export const BusDisplay = () => {
         transition={{ delay: 0.2 }}
         className='items-center justify-between w-full h-14 px-4'
       >
-        <span className='font-medium'>Kalkış:</span>
-        <span className='text-slate-700'>{departureText}</span>
+        <span className='font-medium'>Plaka:</span>
+        <span className='text-slate-700'>{busData.id}</span>
       </motion.div>
     </>
   )
