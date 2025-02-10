@@ -18,7 +18,7 @@ export default function Home() {
           latitude: 39.8915,
           zoom: 13.09,
         }}
-        style={{ height: '100vh' }}
+        style={{ height: '100dvh' }}
         mapStyle='/mapstyle.json'
         attributionControl={false}
         minZoom={13}
