@@ -27,9 +27,15 @@ export default function Home() {
           [32.873, 39.936],
         ]}
       >
-        {ghostData?.map((trip) => (
-          <GhostPin key={trip.middlePoint.id} point={trip.middlePoint} />
-        ))}
+        {ghostData?.map((trip) => {
+          return (
+            <GhostPin
+              key={trip.middlePoint.id}
+              point={trip.middlePoint}
+              opaque={liveData?.vehicles.some((liveBus) => liveBus.departure === trip.departure)}
+            />
+          )
+        })}
         {liveData?.data?.map((point) => (
           <BusPin key={point.id} point={point} />
         ))}

@@ -1,8 +1,16 @@
 import { getBetterColor } from '@/lib/colors'
 
-export const Ghost = ({ color, onClick }: { color: string; onClick?: () => void }) => {
+export const Ghost = ({ color, onClick, className }: { color: string; className?: string; onClick?: () => void }) => {
   return (
-    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24' onClick={onClick}>
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      fill='none'
+      viewBox='0 0 24 24'
+      onClick={onClick}
+      className={className}
+    >
       <path
         fill={getBetterColor(color)}
         stroke='#ffffff'
