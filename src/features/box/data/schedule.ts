@@ -29,7 +29,8 @@ export const getNextTrip = (schedule: Schedule[]) => {
 }
 
 export const getRingNameFromColor = (color: string) => {
-  switch (color) {
+  const upperCaseColor = color.toUpperCase()
+  switch (upperCaseColor) {
     case '#FF0000':
       return 'Sarı-Kırmızı Ring'
     case '#FFFF57':
@@ -38,7 +39,11 @@ export const getRingNameFromColor = (color: string) => {
       return 'Mor Ring'
     case '#A64D00':
       return 'Kahverengi Ring'
+    case '#0000FF':
+      return 'Lacivert Ring'
     case '#737373':
       return 'Gri Ring'
+    default:
+      return upperCaseColor + ' Ring'
   }
 }
