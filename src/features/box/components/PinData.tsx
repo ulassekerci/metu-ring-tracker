@@ -4,10 +4,13 @@ import { XIcon } from 'lucide-react'
 import { getColorName } from '@/lib/colors'
 import { DateTime } from 'luxon'
 import { useLiveData } from '@/features/pins/data/live'
+import { useGhostData } from '@/features/pins/data/ghosts'
 
 export const GhostDisplay = () => {
   const { selected, ghostData, closeBox } = useInfoBoxStore()
   if (!ghostData) return null
+  const { data: liveGhostData } = useGhostData()
+  const selectedGhost = liveGhostData?.find((live) => live.departure === ghostData.departure)
 
   return (
     <>
@@ -25,8 +28,17 @@ export const GhostDisplay = () => {
         transition={{ delay: 0.1 }}
         className='flex items-center justify-between w-full h-14 px-4'
       >
-        <span className='font-semibold'>Kalkış:</span>
-        <span className='font-medium'>{DateTime.fromFormat(ghostData.departure, 'HH:mm:ss').toFormat('HH.mm')}</span>
+        <span className='font-medium'>Kalkış</span>
+        <span>{DateTime.fromFormat(ghostData.departure, 'HH:mm:ss').toFormat('HH.mm')}</span>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, display: 'none' }}
+        animate={{ opacity: selected ? 1 : 0, display: selected ? 'flex' : 'none' }}
+        transition={{ delay: 0.2 }}
+        className='items-center justify-between w-full h-14 px-4'
+      >
+        <span className='font-medium'>Hata Payı</span>
+        <span>{Number(selectedGhost?.middlePoint.maxDistance).toFixed(0) + 'm'}</span>
       </motion.div>
     </>
   )
@@ -57,7 +69,7 @@ export const BusDisplay = () => {
         transition={{ delay: 0.1 }}
         className='items-center justify-between w-full h-14 px-4'
       >
-        <span className='font-medium'>Kalkış:</span>
+        <span className='font-medium'>Kalkış</span>
         <span className='text-slate-700'>{departureText}</span>
       </motion.div>
 
@@ -67,7 +79,7 @@ export const BusDisplay = () => {
         transition={{ delay: 0.2 }}
         className='items-center justify-between w-full h-14 px-4'
       >
-        <span className='font-medium'>Plaka:</span>
+        <span className='font-medium'>Araç</span>
         <span className='text-slate-700'>{busData.id}</span>
       </motion.div>
     </>

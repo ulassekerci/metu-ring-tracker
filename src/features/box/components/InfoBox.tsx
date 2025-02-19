@@ -15,10 +15,10 @@ export const InfoBox = () => {
   const nextTripTime = DateTime.fromFormat(nextTrip.time, 'HH:mm:ss').toFormat('HH.mm')
 
   return (
-    <div className='absolute bottom-12 left-1/2 -translate-x-1/2 w-[90%] md:w-96'>
+    <div className='absolute bottom-12 left-1/2 -translate-x-1/2 w-[90%] md:w-96 shadow-xl'>
       <motion.div
         initial={{ height: 56 }}
-        animate={{ height: selected === 'ghost' ? 112 : selected === 'bus' ? 168 : 56 }}
+        animate={{ height: selected ? 168 : 56 }}
         className={cn('rounded-xl', selected ? 'bg-white' : 'bg-primary text-white')}
       >
         <div>
