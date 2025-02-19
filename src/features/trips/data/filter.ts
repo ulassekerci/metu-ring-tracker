@@ -46,5 +46,12 @@ export const filterSuspicious = (trip: TripData) => {
     if (!trip.points[0].address.includes('A2')) return true
   }
 
+  // if blue with unexpected duration or address
+  if (ringColor === '#0000FF') {
+    if (trip.duration < 1000 || trip.duration > 2400) return true
+    if (!reversePoints[0].address.includes('Dogu yurtlar')) return true
+    if (!trip.points[0].address.includes('Dogu yurtlar')) return true
+  }
+
   return false
 }
