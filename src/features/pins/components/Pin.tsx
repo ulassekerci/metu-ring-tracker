@@ -17,9 +17,7 @@ export const GhostPin = ({ point, opaque = false }: { point: MiddlePoint; opaque
 }
 
 export const BusPin = ({ point }: { point: LivePoint }) => {
-  const { busData, setBusData } = useInfoBoxStore()
-  if (busData?.id === point.id) setBusData(point)
-
+  const { setBusData } = useInfoBoxStore()
   return (
     <Marker longitude={Number(point.lng)} latitude={Number(point.lat)}>
       <img width={24} height={24} src={getFileName(point.clr)} onClick={() => setBusData(point)} />
