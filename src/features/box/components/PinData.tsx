@@ -11,6 +11,8 @@ export const GhostDisplay = () => {
   if (!ghostData) return null
   const { data: liveGhostData } = useGhostData()
   const selectedGhost = liveGhostData?.find((live) => live.departure === ghostData.departure)
+  const errorMarginData = selectedGhost?.middlePoint.maxDistance.toFixed(0) || '-'
+  const errorMarginText = isNaN(Number(errorMarginData)) ? errorMarginData : errorMarginData + 'm'
 
   return (
     <>
@@ -38,7 +40,7 @@ export const GhostDisplay = () => {
         className='items-center justify-between w-full h-14 px-4'
       >
         <span className='font-medium'>Hata Payı</span>
-        <span>{Number(selectedGhost?.middlePoint.maxDistance).toFixed(0) + 'm'}</span>
+        <span>{errorMarginText}</span>
       </motion.div>
     </>
   )
