@@ -30,7 +30,7 @@ export const GhostDisplay = () => {
         className='flex items-center justify-between w-full h-14 px-4'
       >
         <span className='font-medium'>Kalkış</span>
-        <span>{DateTime.fromFormat(ghostData.departure, 'HH:mm:ss').toFormat('HH.mm')}</span>
+        <span>{ghostData.departure}</span>
       </motion.div>
       <motion.div
         initial={{ opacity: 0, display: 'none' }}

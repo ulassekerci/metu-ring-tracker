@@ -11,7 +11,8 @@ export const InfoBox = () => {
 
   if (!schedule) return null
   const nextTrip = getNextTrip(schedule)
-  const nextTripColor = getRingNameFromColor(nextTrip?.color)
+  // TODO: Try displaying multiple colors (19.00 and 20.00 rings)
+  const nextTripColor = getRingNameFromColor(nextTrip.colors[0])
   const nextTripTime = DateTime.fromFormat(nextTrip.time, 'HH:mm:ss').toFormat('HH.mm')
 
   return (

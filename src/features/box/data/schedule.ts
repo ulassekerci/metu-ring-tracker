@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { DateTime } from 'luxon'
 
 export interface Schedule {
-  color: string
+  colors: string[]
   time: string
   weekend: boolean
 }
