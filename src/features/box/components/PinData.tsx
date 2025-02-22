@@ -5,14 +5,13 @@ import { getColorName } from '@/lib/colors'
 import { DateTime } from 'luxon'
 import { useLiveData } from '@/features/pins/data/live'
 import { useGhostData } from '@/features/pins/data/ghosts'
+import { getErrorMargin } from '../data/errorMargin'
 
 export const GhostDisplay = () => {
   const { selected, ghostData, closeBox } = useInfoBoxStore()
   if (!ghostData) return null
   const { data: liveGhostData } = useGhostData()
   const selectedGhost = liveGhostData?.find((live) => live.departure === ghostData.departure)
-  const errorMarginData = selectedGhost?.middlePoint.maxDistance.toFixed(0) || '-'
-  const errorMarginText = isNaN(Number(errorMarginData)) ? errorMarginData : errorMarginData + 'm'
 
   return (
     <>
@@ -40,7 +39,7 @@ export const GhostDisplay = () => {
         className='items-center justify-between w-full h-14 px-4'
       >
         <span className='font-medium'>Hata Payı</span>
-        <span>{errorMarginText}</span>
+        <span>{getErrorMargin(selectedGhost?.middlePoint.maxDistance)}</span>
       </motion.div>
     </>
   )
