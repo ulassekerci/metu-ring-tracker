@@ -21,7 +21,7 @@ export const HelpDrawer = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.1 }}
-            className='bg-white absolute z-20 inset-0 rounded-t-3xl top-32 flex flex-col justify-between items-center py-8 px-4'
+            className='bg-white absolute z-20 inset-0 rounded-t-3xl top-32 flex flex-col justify-between items-center py-8 px-4 md:left-1/2 md:top-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-3xl md:py-4'
           >
             <div className='flex flex-col items-center'>
               <span className='text-3xl font-bold'>SiteAdı</span>
@@ -29,7 +29,7 @@ export const HelpDrawer = () => {
                 Hayaletler tahmini ring konumları işte onların üstüne basınca geçmişteki konumlarını falan öyle
               </span>
             </div>
-            <Button className='h-14 w-full mb-4 rounded-xl' onClick={close}>
+            <Button className='h-14 w-full mb-4 md:mb-0 rounded-2xl' onClick={close}>
               Tamam
             </Button>
           </motion.div>
