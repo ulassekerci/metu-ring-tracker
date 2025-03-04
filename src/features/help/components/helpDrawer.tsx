@@ -1,7 +1,6 @@
 import Button from '@/components/Button'
 import { useDrawerStore } from '../store'
 import { AnimatePresence, motion } from 'motion/react'
-import { GhostIcon } from 'lucide-react'
 import { Ghost } from '@/features/pins/components/Ghost'
 
 export const HelpDrawer = () => {
