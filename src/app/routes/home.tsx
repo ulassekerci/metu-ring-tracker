@@ -30,13 +30,7 @@ export default function Home() {
         ]}
       >
         {ghostData?.map((trip) => {
-          return (
-            <GhostPin
-              key={trip.middlePoint.id}
-              point={trip.middlePoint}
-              opaque={liveData?.vehicles.some((liveBus) => liveBus.departure === trip.departure)}
-            />
-          )
+          return <GhostPin key={trip.middlePoint.id} point={trip.middlePoint} />
         })}
         {liveData?.data?.map((point) => (
           <BusPin key={point.id} point={point} />
