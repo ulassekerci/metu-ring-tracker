@@ -18,5 +18,6 @@ const colorDict = [
   { en: 'Yellow', tr: 'Sarı', hex: '#FFFF57', better: '#FFCC00', file: 'ring-yellow.png' },
   { en: 'Purple', tr: 'Mor', hex: '#9600CD', better: '#B366FF', file: 'ring-purple.png' },
   { en: 'Brown', tr: 'Kahverengi', hex: '#A64D00', better: '#D97706', file: 'ring-brown.png' },
+  { en: 'Blue', tr: 'Lacivert', hex: '#0000FF', better: '#1447E6', file: 'ring-blue.png' },
   { en: 'Gray', tr: 'Gri', hex: '#737373', better: '#737373', file: 'ring-gray.png' },
 ]
