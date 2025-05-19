@@ -25,7 +25,7 @@ export const HelpDrawer = () => {
             className='bg-white absolute z-20 inset-0 rounded-t-3xl top-32 flex flex-col justify-between items-center py-8 px-4 md:left-1/2 md:top-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-3xl md:py-4 md:w-[550px] md:h-[420px]'
           >
             <div className='flex flex-col items-center'>
-              <span className='text-3xl font-bold'>RingTahmin</span>
+              <span className='text-3xl font-bold'>Ring Nerede</span>
               <div className='mt-12 flex gap-5 items-center'>
                 <img className='w-8 h-8' src='ring-red.png' />
                 <span>Otobüs simgesiyle gösterilen araçlar gerçek zamanlı konum bilgisine sahip.</span>
