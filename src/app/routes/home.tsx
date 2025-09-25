@@ -30,15 +30,15 @@ export default function Home() {
         ]}
       >
         {ghostData?.map((trip) => {
-          return <GhostPin key={trip.middlePoint.id} point={trip.middlePoint} />
+          return <GhostPin key={trip.average.id} tPoint={trip.average} />
         })}
         {liveData?.data?.map((point) => (
-          <BusPin key={point.id} point={point} />
+          <BusPin key={point.plate} point={point} />
         ))}
         {selected === 'ghost' &&
           ghostData
             ?.find((data) => data.departure === selectedGhost?.departure)
-            ?.trips.map((point) => <OtherGhostPin key={point.id} point={point} />)}
+            ?.trips.map((point) => <OtherGhostPin key={point.id} point={point.point} />)}
       </Map>
 
       <InfoBox />

@@ -3,28 +3,30 @@ import { useQuery } from '@tanstack/react-query'
 
 export interface LiveData {
   data: LivePoint[] | null
-  timestamp: string | null // null only on local (crawler disabled)
+  timestamp: string | null
   vehicles: LiveVehicle[]
 }
 
 export interface LivePoint {
-  lat: string // latitude
-  lng: string // longitude
-  addr: string // address
-  dir: number // direction (0-8, one per 45 degrees)
-  sp: string // speed
-  clr: string // color
-  ago: number // data age
-  key: string // state
-  id: string // license plate
+  lat: number
+  lng: number
+  address: string
+  color: string
+  state: string
+  plate: string
+  serviceTime: number
 }
 
 export interface LiveVehicle {
-  tripID: string
   plate: string
-  color: string
-  state: string
-  departure: string | null
+  info: VehicleInfo | null
+}
+
+interface VehicleInfo {
+  plate: string
+  doors: number
+  brand: string
+  model: string
 }
 
 const fetchLive = async () => {
