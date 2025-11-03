@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import { useInfoBoxStore } from '../store'
 import { XIcon } from 'lucide-react'
 import { getColorName } from '@/lib/colors'
+import { useLiveData } from '@/features/pins/data/live'
 // import { DateTime } from 'luxon'
 // import { useLiveData } from '@/features/pins/data/live'
 // import { useGhostData } from '@/features/pins/data/ghosts'
@@ -45,12 +46,13 @@ export const GhostDisplay = () => {
 }
 
 export const BusDisplay = () => {
-  // const { data: liveData } = useLiveData()
+  const { data: liveData } = useLiveData()
   const { selected, busData, closeBox } = useInfoBoxStore()
   if (!busData) return null
-  // const vehicle = liveData?.vehicles.find((v) => v.plate === busData.plate)
-  // const liveDeparture = vehicle?.departure
-  // const departureText = liveDeparture ? DateTime.fromFormat(liveDeparture, 'HH:mm:ss').toFormat('HH.mm') : 'Bilinmiyor'
+  console.log(liveData)
+  const vehicle = liveData?.data?.find((v) => v.plate === busData.plate)
+  const liveDeparture = vehicle?.trip.departureTime
+  const departureText = liveDeparture ?? 'Bilinmiyor'
 
   return (
     <>
@@ -70,7 +72,7 @@ export const BusDisplay = () => {
         className='items-center justify-between w-full h-14 px-4'
       >
         <span className='font-medium'>Kalkış</span>
-        {/* <span className='text-slate-700'>{departureText}</span> */}
+        <span className='text-slate-700'>{departureText}</span>
       </motion.div>
 
       <motion.div
@@ -80,7 +82,7 @@ export const BusDisplay = () => {
         className='items-center justify-between w-full h-14 px-4'
       >
         <span className='font-medium'>Araç</span>
-        <span className='text-slate-700'>{busData.color}</span>
+        <span className='text-slate-700'>{vehicle?.brand + ' ' + vehicle?.model}</span>
       </motion.div>
     </>
   )
