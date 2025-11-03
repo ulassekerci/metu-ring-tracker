@@ -1,13 +1,13 @@
 import { create } from 'zustand'
-import { LivePoint } from '../pins/data/live'
+import { LiveVehicle } from '../pins/data/live'
 import { TripPoint } from '../pins/data/ghosts'
 
 type Store = {
   selected: 'ghost' | 'bus' | null
   ghostData: TripPoint | null
-  busData: LivePoint | null
+  busData: LiveVehicle | null
   setGhostData: (data: TripPoint) => void
-  setBusData: (data: LivePoint) => void
+  setBusData: (data: LiveVehicle) => void
   closeBox: () => void
 }
 
