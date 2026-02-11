@@ -1,16 +1,12 @@
 import { InfoBox } from '@/features/box/components/InfoBox'
-import { useInfoBoxStore } from '@/features/box/store'
 import { HelpDrawer } from '@/features/help/components/helpDrawer'
 import { HelpIcon } from '@/features/help/components/helpIcon'
-import { BusPin, GhostPin, OtherGhostPin } from '@/features/pins/components/Pin'
-import { useGhostData } from '@/features/pins/data/ghosts'
+import { BusPin } from '@/features/pins/components/Pin'
 import { useLiveData } from '@/features/pins/data/live'
 import Map from 'react-map-gl/maplibre'
 
 export default function Home() {
-  const { data: ghostData } = useGhostData()
   const { data: liveData } = useLiveData()
-  const { selected, ghostData: selectedGhost } = useInfoBoxStore()
 
   return (
     <>
@@ -29,16 +25,9 @@ export default function Home() {
           [32.873, 39.936],
         ]}
       >
-        {ghostData?.map((trip) => {
-          return <GhostPin key={trip.average.id} tPoint={trip.average} />
-        })}
-        {liveData?.data?.map((point) => (
-          <BusPin key={point.plate} point={point} />
+        {liveData?.map((trip) => (
+          <BusPin key={trip.vehicle.plate} point={trip.closestPointToNow} />
         ))}
-        {selected === 'ghost' &&
-          ghostData
-            ?.find((data) => data.departure === selectedGhost?.departure)
-            ?.trips.map((point) => <OtherGhostPin key={point.id} point={point.point} />)}
       </Map>
 
       <InfoBox />

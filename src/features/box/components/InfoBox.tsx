@@ -1,7 +1,7 @@
 import { motion } from 'motion/react'
 import { useInfoBoxStore } from '../store'
 import { cn } from '@/utils/cn'
-import { BusDisplay, GhostDisplay } from './PinData'
+import { BusDisplay } from './PinData'
 import { getNextTrip, getRingNameFromColor, useSchedule } from '../data/schedule'
 
 export const InfoBox = () => {
@@ -11,7 +11,8 @@ export const InfoBox = () => {
   if (!schedule) return null
   const nextTrip = getNextTrip(schedule)
   // TODO: Try displaying multiple colors (19.00 and 20.00 rings)
-  const nextTripColor = getRingNameFromColor(nextTrip.colors[0])
+  const nextTripColor = getRingNameFromColor(nextTrip.line.colors[0])
+  console.log(nextTrip)
 
   return (
     <div className='absolute bottom-12 left-1/2 -translate-x-1/2 w-[90%] md:w-96 shadow-xl'>
@@ -27,11 +28,10 @@ export const InfoBox = () => {
                 <span className='font-semibold mr-1'>Sıradaki:</span>
                 <span className='font-medium'>{nextTripColor}</span>
               </div>
-              <span className='font-medium'>{nextTrip.time}</span>
+              <span className='font-medium'>{nextTrip.time.toHuman()}</span>
             </div>
           )}
-          {selected === 'ghost' && <GhostDisplay />}
-          {selected === 'bus' && <BusDisplay />}
+          {selected && <BusDisplay />}
         </div>
       </motion.div>
     </div>
