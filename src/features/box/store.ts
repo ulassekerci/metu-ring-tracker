@@ -1,13 +1,12 @@
+import { RingPoint } from '@/interfaces'
 import { create } from 'zustand'
-import { LiveVehicle } from '../pins/data/live'
-import { TripPoint } from '../pins/data/ghosts'
 
 type Store = {
   selected: 'ghost' | 'bus' | null
-  ghostData: TripPoint | null
-  busData: LiveVehicle | null
-  setGhostData: (data: TripPoint) => void
-  setBusData: (data: LiveVehicle) => void
+  ghostData: RingPoint | null
+  busData: RingPoint | null
+  setGhostData: (data: RingPoint) => void
+  setBusData: (data: RingPoint) => void
   closeBox: () => void
 }
 
