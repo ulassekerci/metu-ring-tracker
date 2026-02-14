@@ -1,11 +1,11 @@
-import { RingPoint } from '@/interfaces'
+import { GhostData, RingPoint } from '@/interfaces'
 import { create } from 'zustand'
 
 type Store = {
   selected: 'ghost' | 'bus' | null
-  ghostData: RingPoint | null
+  ghostData: GhostData | null
   busData: RingPoint | null
-  setGhostData: (data: RingPoint) => void
+  setGhostData: (data: GhostData) => void
   setBusData: (data: RingPoint) => void
   closeBox: () => void
 }

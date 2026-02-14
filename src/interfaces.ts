@@ -1,3 +1,5 @@
+import { ServiceTime } from './lib/ServiceTime'
+
 export interface RingPoint {
   lat: number
   lng: number
@@ -8,14 +10,25 @@ export interface RingPoint {
   serviceTime: number
 }
 
+export interface ClosestPoint extends RingPoint {
+  distanceTraveled: number
+}
+
 export interface RingTrip {
   id: string
   line: string
   color: string
   vehicle: Vehicle
   departureTime: number | null
-  closestPointToNow: RingPoint
+  closestPointToNow: ClosestPoint
   isPartial: boolean
+  isParked: boolean
+}
+
+export interface GhostData {
+  trips: RingTrip[]
+  departure: ServiceTime
+  average: RingTrip
 }
 
 export interface Vehicle {
