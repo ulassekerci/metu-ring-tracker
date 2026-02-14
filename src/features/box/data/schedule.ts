@@ -28,7 +28,7 @@ export const getNextTrip = (lines: RingLine[]) => {
     line.departures.forEach((departure) => {
       const now = ServiceTime.now()
       const depServiceTime = new ServiceTime(departure)
-      if (depServiceTime.seconds < now.seconds) return
+      if (depServiceTime.seconds < now.seconds + 60) return
       // TODO: handle weekends
       if (!nextTripOfDay) nextTripOfDay = { time: depServiceTime, line }
 
