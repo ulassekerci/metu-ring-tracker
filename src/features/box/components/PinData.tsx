@@ -5,7 +5,6 @@ import { getColorName } from '@/lib/colors'
 import { ServiceTime } from '@/lib/ServiceTime'
 import { useLiveData } from '@/features/pins/data/live'
 import { useGhostData } from '@/features/pins/data/ghosts'
-import { getErrorMargin } from '../data/errorMargin'
 
 export const PinDataDisplay = () => {
   const { data: liveData } = useLiveData()
@@ -16,7 +15,7 @@ export const PinDataDisplay = () => {
   let color = ''
   let departureText = 'Bilinmiyor'
   let vehicleText = 'Bilinmiyor'
-  let errorMarginText = 'Bilinmiyor'
+  let ghostCount = 0
 
   if (!selected) return null
   if (selected === 'bus') {
@@ -41,8 +40,7 @@ export const PinDataDisplay = () => {
     if (selectedDeparture) {
       color = getColorName(selectedDeparture.average.color)
       departureText = selectedDeparture?.departure.toHuman()
-      const errorMargin = getErrorMargin(selectedDeparture.trips.map((t) => t.closestPointToNow.distanceTraveled))
-      errorMarginText = errorMargin
+      ghostCount = selectedDeparture.trips.length
     }
   }
 
@@ -80,8 +78,8 @@ export const PinDataDisplay = () => {
           </>
         ) : (
           <>
-            <span className='font-medium'>Hata Payı</span>
-            <span className='text-slate-700'>{errorMarginText}</span>
+            <span className='font-medium'>Hayalet Sayısı</span>
+            <span className='text-slate-700'>{ghostCount}</span>
           </>
         )}
       </motion.div>

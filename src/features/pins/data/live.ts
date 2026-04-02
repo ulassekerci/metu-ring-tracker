@@ -8,9 +8,15 @@ const fetchLive = async () => {
 }
 
 export const useLiveData = () => {
-  return useQuery({
+  const query = useQuery({
     queryKey: ['live'],
     queryFn: () => fetchLive(),
     refetchInterval: 1000,
   })
+  const liveDepartures = new Set<number>()
+  query.data?.forEach((trip) => {
+    if (!trip.departureTime) return
+    liveDepartures.add(trip.departureTime)
+  })
+  return { ...query, departures: [...liveDepartures.values()] }
 }

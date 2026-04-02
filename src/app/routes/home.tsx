@@ -8,7 +8,7 @@ import { useLiveData } from '@/features/pins/data/live'
 import Map from 'react-map-gl/maplibre'
 
 export default function Home() {
-  const { data: liveData } = useLiveData()
+  const { data: liveData, departures: liveDepartures } = useLiveData()
   const { data: ghostData } = useGhostData()
   const { selected, ghostData: selectedGhost } = useInfoBoxStore()
 
@@ -32,9 +32,11 @@ export default function Home() {
         {liveData?.map((trip) => (
           <BusPin key={trip.vehicle.plate} point={trip.closestPointToNow} />
         ))}
-        {ghostData?.map((departure) => (
-          <GhostPin key={departure.average.id} data={departure} />
-        ))}
+        {ghostData
+          ?.filter((ghost) => !liveDepartures.includes(ghost.departure.seconds))
+          .map((departure) => (
+            <GhostPin key={departure.average.id} data={departure} />
+          ))}
         {selected === 'ghost' &&
           ghostData
             ?.find((dep) => dep.departure.seconds === selectedGhost?.departure.seconds)

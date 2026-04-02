@@ -27,7 +27,7 @@ export const OtherGhostsPin = ({ data }: { data: RingTrip }) => {
   const point = data.closestPointToNow
   return (
     <Marker longitude={Number(point.lng)} latitude={Number(point.lat)}>
-      <Ghost color={point.color} />
+      <Ghost color={point.color} onClick={() => console.log(data.id)} />
     </Marker>
   )
 }
